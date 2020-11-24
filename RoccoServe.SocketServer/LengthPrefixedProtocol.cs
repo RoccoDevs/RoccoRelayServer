@@ -12,9 +12,9 @@ namespace RoccoServe.SocketServer
         {
             var reader = new SequenceReader<byte>(input);
 
-            var length = 0;
-            
-            JsonSerializer.de
+            // var length = 0;
+            //
+            // JsonSerializer.de
             // if (input.Length >= 4)
             // {
             //     reader.tryre
@@ -24,11 +24,11 @@ namespace RoccoServe.SocketServer
             //     // length |= (((int)input[offset + 3]) << 24);
             // }
             
-            // if (!reader.TryReadBigEndian(out int length) || input.Length < length)
-            // {
-            //     message = default;
-            //     return false;
-            // }
+            if (!reader.TryReadBigEndian(out int length) || input.Length < length)
+            {
+                message = default;
+                return false;
+            }
 
             var payload = input.Slice(reader.Position, length);
             message = new Message(payload);
