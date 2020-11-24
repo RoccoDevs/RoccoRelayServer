@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoccoServe.SocketServer", "RoccoServe.SocketServer\RoccoServe.SocketServer.csproj", "{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E1DD0614-808C-432D-8A7C-81EACC20FDE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8591E706-2FDD-446A-A94F-41751E873554}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoccoServe.Framework.Server", "RoccoServe.Framework.Server\RoccoServe.Framework.Server.csproj", "{B8A74D41-3591-4238-B16B-3A0670BD12B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoccoServe.Framework.Infrastructure", "RoccoServe.Framework.Infrastructure\RoccoServe.Framework.Infrastructure.csproj", "{82E63470-7622-4B05-9FB5-48DFF434977F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8A74D41-3591-4238-B16B-3A0670BD12B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8A74D41-3591-4238-B16B-3A0670BD12B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8A74D41-3591-4238-B16B-3A0670BD12B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8A74D41-3591-4238-B16B-3A0670BD12B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E63470-7622-4B05-9FB5-48DFF434977F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E63470-7622-4B05-9FB5-48DFF434977F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E63470-7622-4B05-9FB5-48DFF434977F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E63470-7622-4B05-9FB5-48DFF434977F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{218CEA4A-BBD7-47AB-AF62-A4D015B3AACE} = {E1DD0614-808C-432D-8A7C-81EACC20FDE1}
+		{B8A74D41-3591-4238-B16B-3A0670BD12B3} = {8591E706-2FDD-446A-A94F-41751E873554}
+		{82E63470-7622-4B05-9FB5-48DFF434977F} = {8591E706-2FDD-446A-A94F-41751E873554}
+	EndGlobalSection
+EndGlobal
