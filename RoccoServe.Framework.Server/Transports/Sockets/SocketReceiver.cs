@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Net.Sockets;
-using System.Text;
 
-namespace Bedrock.Framework
+namespace RoccoServe.Framework.Server.Transports.Sockets
 {
     internal class SocketReceiver
     {
