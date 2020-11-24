@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using RoccoServe.Framework.Server.Infrastructure;
 
 namespace RoccoServe.Framework.Server
 {
     public class ServerBuilder
     {
+        public ServerBuilder() : this(EmptyServiceProvider.Instance)
+        {
 
+        }
         public ServerBuilder(IServiceProvider serviceProvider)
         {
             ApplicationServices = serviceProvider;
