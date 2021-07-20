@@ -2,7 +2,7 @@
 RoccoRelayServer is a fast server meant to facilitate P2P communication between clients over the internet. The main goal is to bypass anything like UPnP or port forwarding. 
 
 # History
-I created this for a university project at the HAN that specified our P2P game could not use features like UPnP or NAT hole punching to connect clients. That meant we needed something like a VPN. Instead, I came up with this relay server as it seemed like a good alternative. And perhaps most importantly, fun. 
+I created this for a university project at the HAN that specified our P2P game could not use features like UPnP or NAT hole punching to connect clients. That meant we needed something like a VPN. Instead, I came up with this relay server as it seemed like a good alternative. And perhaps most importantly, I saw it as a good opportunity to learn new things. 
 
 # SixtyNine protocol
 The protocol is fast and barebones. It only contains the length and payload. It uses four types to determine what the message is and how the relay should handle it. `INIT,CLOSE,ERROR,MESSAGE`
