@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer", "TheDesolatedTunnels.RelayServer\TheDesolatedTunnels.RelayServer.csproj", "{8989EA07-EFC1-4419-886F-DFC372E3A5AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer.Core", "TheDesolatedTunnels.RelayServer.Core\TheDesolatedTunnels.RelayServer.Core.csproj", "{94720087-5D64-497B-A6CB-267FF582A75D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer.Core.Domain", "TheDesolatedTunnels.RelayServer.Core.Domain\TheDesolatedTunnels.RelayServer.Core.Domain.csproj", "{DF84B88F-FC5D-405A-B4AF-4FFA499E77D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer.Core.Interfaces", "TheDesolatedTunnels.RelayServer.Core.Interfaces\TheDesolatedTunnels.RelayServer.Core.Interfaces.csproj", "{D4EA79D1-A5DD-4533-BA4B-33B4BED01FD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3CC6B913-FB87-4C82-A4B3-713072E8AC7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer.Core.Tests", "TheDesolatedTunnels.RelayServer.Core.Tests\TheDesolatedTunnels.RelayServer.Core.Tests.csproj", "{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8989EA07-EFC1-4419-886F-DFC372E3A5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8989EA07-EFC1-4419-886F-DFC372E3A5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8989EA07-EFC1-4419-886F-DFC372E3A5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8989EA07-EFC1-4419-886F-DFC372E3A5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94720087-5D64-497B-A6CB-267FF582A75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94720087-5D64-497B-A6CB-267FF582A75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94720087-5D64-497B-A6CB-267FF582A75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94720087-5D64-497B-A6CB-267FF582A75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF84B88F-FC5D-405A-B4AF-4FFA499E77D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF84B88F-FC5D-405A-B4AF-4FFA499E77D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF84B88F-FC5D-405A-B4AF-4FFA499E77D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF84B88F-FC5D-405A-B4AF-4FFA499E77D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EA79D1-A5DD-4533-BA4B-33B4BED01FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EA79D1-A5DD-4533-BA4B-33B4BED01FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EA79D1-A5DD-4533-BA4B-33B4BED01FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EA79D1-A5DD-4533-BA4B-33B4BED01FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0} = {3CC6B913-FB87-4C82-A4B3-713072E8AC7B}
+	EndGlobalSection
+EndGlobal
