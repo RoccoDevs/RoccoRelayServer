@@ -102,7 +102,102 @@ package "RelayServer.Core"{
     }
 }
 
+package "RelayServer.Core"{
+    package "RelayServer.Core.Services"{
+        class SixtyNineWriter {
+            + <<const>> SourcePropertyName : string = "source"
+            + <<const>> DestinationPropertyName : string = "destination"
+            + <<const>> PayloadPropertyName : string = "payload"
+            + WriteMessage(message:SixtyNineSendibleMessage, stream:IBufferWriter<byte>) : void
+            - {static} WriteContent(message:SixtyNineSendibleMessage, reusableWriter:ReusableUtf8JsonWriter) : void
+            - {static} WriteErrorMessage(message:ErrorMessage, writer:Utf8JsonWriter) : void
+            - {static} WriteInitResponseMessage(message:InitResponseMessage, writer:Utf8JsonWriter) : void
+            - {static} WritePayLoadMessage(message:PayloadMessage, writer:Utf8JsonWriter) : void
+            - {static} WritePayloadType(message:SixtyNineSendibleMessage, writer:Utf8JsonWriter) : void
+            - {static} WriteSource(message:SixtyNineSendibleMessage, writer:Utf8JsonWriter) : void
+            - {static} WriteDestination(destination:string, writer:Utf8JsonWriter) : void
+            - {static} WritePayload(payload:Memory<byte>, writer:Utf8JsonWriter) : void
+        }
+        class SixtyNineReader {
+            + <<virtual>> TryParseMessage(input:ReadOnlySequence<byte>, consumed:SequencePosition, examined:SequencePosition, message:SixtyNineMessage) : bool
+            - {static} GetSixtyNineMessageFromType(payloadType:string, source:string, destination:string, payload:Memory<byte>) : SixtyNineMessage
+        }
+        class ConnectionStore {
+            + <<virtual>> Contains(connectionId:string) : bool
+            + Count() : int
+            + <<virtual>> Add(connection:ConnectionContext) : void
+            + <<virtual>> Remove(connection:ConnectionContext) : void
+        }
+        class PrefixBufferWriter {
+            - <<readonly>> MaxMessageLength : int = 512
+            - _count : int
+            + PrefixBufferWriter(writer:IBufferWriter<byte>, lengthHint:int)
+            + Advance(count:int) : void
+            + GetMemory(sizeHint:int) : Memory<byte>
+            + GetSpan(sizeHint:int) : Span<byte>
+            + Complete() : void
+        }
+        class MessageHandler {
+            + MessageHandler(connectionStore:ConnectionStore, logger:ILogger<MessageHandler>)
+            + HandleMessage(connection:ConnectionContext, message:SixtyNineMessage) : SixtyNineSendibleMessage?
+            <<internal>> HandleCloseMessage(connectionContext:ConnectionContext) : SixtyNineSendibleMessage?
+            <<internal>> HandleInitMessage(socketMessage:InitMessage, connectionContext:ConnectionContext) : SixtyNineSendibleMessage
+        }   
+        class MessageSender {
+            + MessageSender(messageWriter:IMessageWriter<SixtyNineSendibleMessage>, connectionStore:ConnectionStore)
+            + <<async>> TrySendAsync(requestMessage:SixtyNineSendibleMessage, cancellationToken:CancellationToken) : ValueTask<FlushResult>
+        }
+    }
+    package "Microsoft"{
+        class ReusableUtf8JsonWriter <<sealed>> {
+            + ReusableUtf8JsonWriter(stream:IBufferWriter<byte>)
+            + {static} Get(stream:IBufferWriter<byte>) : ReusableUtf8JsonWriter
+            + {static} Return(writer:ReusableUtf8JsonWriter) : void
+            + GetJsonWriter() : Utf8JsonWriter
+        }
+        class SystemTextJsonExtensions <<static>> {
+            + {static} CheckRead(reader:Utf8JsonReader) : bool
+            + {static} EnsureObjectStart(reader:Utf8JsonReader) : void
+            + {static} GetTokenString(reader:Utf8JsonReader) : string
+            + {static} GetTokenString(tokenType:JsonTokenType) : string
+            + {static} EnsureArrayStart(reader:Utf8JsonReader) : void
+            + {static} ReadAsBoolean(reader:Utf8JsonReader, propertyName:string) : bool
+            + {static} ReadAsString(reader:Utf8JsonReader, propertyName:string) : string?
+            + {static} ReadAsInt32(reader:Utf8JsonReader, propertyName:string) : int?
+        }
+    
+    }
+
+    package "RelayServer.Core.Helpers"{
+        class SixtyNineMessageTypeHelper <<static>> {
+            + <<const>> Init : string = "INIT"
+            + <<const>> Payload : string = "MESSAGE"
+            + <<const>> Error : string = "ERROR"
+            + <<const>> Close : string = "CLOSE"
+            + {static} ToString(sixtyNineMessageType:SixtyNineMessageType) : string
+        }
+        class SixtyNinePropertyNames <<static>> {
+            + <<const>> PayloadTypePropertyName : string = "payloadType"
+        }
+    }
+
+    
+
+    package "RelayServer.Core.ConnectionHandlers"{
+        class SixtyNineProtocolHandler {
+            + SixtyNineProtocolHandler(logger:ILogger<SixtyNineProtocolHandler>, messageHandler:IMessageHandler, messageSender:IMessageSender, connectionStore:ConnectionStore)
+            + <<override>> <<async>> OnConnectedAsync(connection:ConnectionContext) : Task
+        }
+    }
+}
+
 package "RelayServer.Core.Domain"{
+
+    package "RelayServer.Core.Domain.Exceptions"{
+        class ConnectionNotFoundException {
+            + ConnectionNotFoundException(connectionId:string)
+        }
+    }
 
     abstract class SixtyNineMessage {
         + Source : string? <<get>>

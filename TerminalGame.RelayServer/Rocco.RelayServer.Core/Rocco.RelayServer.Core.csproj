@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bedrock.Framework" Version="*-*" />
+        <PackageReference Include="Bedrock.Framework.Experimental" Version="*-*" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="5.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="5.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rocco.RelayServer.Core.Domain\Rocco.RelayServer.Core.Domain.csproj" />
+      <ProjectReference Include="..\Rocco.RelayServer.Core.Interfaces\Rocco.RelayServer.Core.Interfaces.csproj" />
+    </ItemGroup>
+</Project>
