@@ -1,6 +1,9 @@
 # Rocco.RelayServer
 
 [![CI](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/dotnet-core.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/537d36aa9ed242708a0bdd9f426deab6)](https://www.codacy.com/gh/tomesendam/RoccoRelayServer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tomesendam/RoccoRelayServer&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/537d36aa9ed242708a0bdd9f426deab6)](https://www.codacy.com/gh/tomesendam/RoccoRelayServer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=tomesendam/RoccoRelayServer&utm_campaign=Badge_Coverage)
+[![Codacy Security Scan](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/codacy-analysis.yaml/badge.svg)](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/codacy-analysis.yaml)
 
 ## Introduction
 
