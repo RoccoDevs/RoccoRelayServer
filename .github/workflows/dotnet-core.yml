@@ -1,14 +1,13 @@
-name: .NET Core
+name: CI
 
 on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +19,11 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Build
-      run: dotnet build ./TerminalGame.RelayServer/TerminalGame.RelayServer.sln --configuration Release
+      run: dotnet build ./Rocco.RelayServer/Rocco.RelayServer.sln --configuration Release
     - name: Test
-      run: dotnet test ./TerminalGame.RelayServer/TerminalGame.RelayServer.sln --no-build --configuration Release
+      run: dotnet test ./Rocco.RelayServer/Rocco.RelayServer.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-build --configuration Release
+    - name: Run codacy-coverage-reporter
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: ./Rocco.RelayServer/Rocco.RelayServer.Core.Tests/coverage.opencover.xml
