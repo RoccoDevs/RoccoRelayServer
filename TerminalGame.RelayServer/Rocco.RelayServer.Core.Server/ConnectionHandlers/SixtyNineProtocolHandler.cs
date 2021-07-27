@@ -56,6 +56,7 @@ namespace Rocco.RelayServer.Core.Server.ConnectionHandlers
             var protocol = _messageReader;
             var reader = connection.CreateReader();
             while (!connection.ConnectionClosed.IsCancellationRequested)
+            {
                 try
                 {
                     var result = await reader.ReadAsync(protocol);
@@ -64,7 +65,10 @@ namespace Rocco.RelayServer.Core.Server.ConnectionHandlers
 
                     var returnMessage = _messageHandler.HandleMessage(connection, message);
 
-                    if (returnMessage == null || string.IsNullOrEmpty(returnMessage.Destination)) continue;
+                    if (returnMessage == null || string.IsNullOrEmpty(returnMessage.Destination))
+                    {
+                        continue;
+                    }
 
                     try
                     {
@@ -75,20 +79,25 @@ namespace Rocco.RelayServer.Core.Server.ConnectionHandlers
                     }
                     catch (ConnectionNotFoundException e)
                     {
-                        _logger.LogError("connection not found: {@Message}",e.Message);
+                        _logger.LogError("connection not found: {@Message}", e.Message);
                     }
                     catch (ArgumentNullException e)
                     {
                         _logger.LogError(
-                            "Client {@ConnectionId} threw: {@Message} /n trace: {@StackTrace}",connection.ConnectionId,e.Message,e.StackTrace);
+                            "Client {@ConnectionId} threw: {@Message} /n trace: {@StackTrace}", connection.ConnectionId,
+                            e.Message, e.StackTrace);
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError("Connection {@ConnectionId} threw: {@Message} /n trace: {@StackTrace}",connection.ConnectionId,e.Message,e.StackTrace);
+                        _logger.LogError("Connection {@ConnectionId} threw: {@Message} /n trace: {@StackTrace}",
+                            connection.ConnectionId, e.Message, e.StackTrace);
                     }
 
 
-                    if (result.IsCompleted) break;
+                    if (result.IsCompleted)
+                    {
+                        break;
+                    }
                 }
                 catch (ConnectionResetException)
                 {
@@ -100,6 +109,7 @@ namespace Rocco.RelayServer.Core.Server.ConnectionHandlers
                 {
                     reader.Advance();
                 }
+            }
 
             _logger.LogInformation("Disconnected: {@Connection}",connection.ConnectionId);
             _connectionStore.Remove(connection);

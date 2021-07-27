@@ -96,9 +96,18 @@ namespace Rocco.RelayServer.Core.Services
         private static void WriteErrorMessage(ErrorMessage message, Utf8JsonWriter writer)
         {
             WritePayloadType(message, writer);
-            if (message.Source is not null) WriteSource(message, writer);
+            
+            if (message.Source is not null)
+            {
+                WriteSource(message, writer);
+            }
+            
             WriteDestination(message.Destination, writer);
-            if (message.Payload is not null) WritePayload(message.Payload.Value, writer);
+            
+            if (message.Payload is not null)
+            {
+                WritePayload(message.Payload.Value, writer);
+            }
         }
 
         /// <summary>

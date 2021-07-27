@@ -73,54 +73,48 @@ namespace Rocco.RelayServer.Core.Services
             {
                 switch (reader.TokenType)
                 {
-                    case JsonTokenType.PropertyName:
-                        if (reader.ValueTextEquals(SixtyNinePropertyNames.PayloadTypePropertyNameBytes
-                            .EncodedUtf8Bytes))
-                        {
-                            payloadType = reader.ReadAsString(SixtyNinePropertyNames.PayloadTypePropertyName)
-                                          ?? throw new InvalidDataException(
-                                              $"Expected '{SixtyNinePropertyNames.PayloadTypePropertyName}' to be of type {JsonTokenType.String}.");
-                        }
-                        else if (reader.ValueTextEquals(SixtyNineWriter.SourcePropertyNameBytes.EncodedUtf8Bytes)
-                        )
-                        {
-                            source = reader.ReadAsString(SixtyNineWriter.SourcePropertyName)
-                                     ?? throw new InvalidDataException(
-                                         $"Expected '{SixtyNineWriter.SourcePropertyName}' to be of type {JsonTokenType.String}.");
-                        }
-                        else if (reader.ValueTextEquals(SixtyNineWriter.DestinationPropertyNameBytes
-                            .EncodedUtf8Bytes))
-                        {
-                            destination = reader.ReadAsString(SixtyNineWriter.DestinationPropertyName)
-                                          ?? throw new InvalidDataException(
-                                              $"Expected '{SixtyNineWriter.DestinationPropertyName}' to be of type {JsonTokenType.String}.");
-                        }
-                        else if (reader.ValueTextEquals(
-                            SixtyNineWriter.PayloadPropertyNameBytes.EncodedUtf8Bytes))
-                        {
-                            reader.Read();
+                    case JsonTokenType.PropertyName when reader.ValueTextEquals(SixtyNinePropertyNames.PayloadTypePropertyNameBytes
+                        .EncodedUtf8Bytes):
+                        payloadType = reader.ReadAsString(SixtyNinePropertyNames.PayloadTypePropertyName)
+                                      ?? throw new InvalidDataException(
+                                          $"Expected '{SixtyNinePropertyNames.PayloadTypePropertyName}' to be of type {JsonTokenType.String}.");
+                        break;
+                    case JsonTokenType.PropertyName when reader.ValueTextEquals(SixtyNineWriter.SourcePropertyNameBytes.EncodedUtf8Bytes):
+                        source = reader.ReadAsString(SixtyNineWriter.SourcePropertyName)
+                                 ?? throw new InvalidDataException(
+                                     $"Expected '{SixtyNineWriter.SourcePropertyName}' to be of type {JsonTokenType.String}.");
+                        break;
+                    case JsonTokenType.PropertyName when reader.ValueTextEquals(SixtyNineWriter.DestinationPropertyNameBytes
+                        .EncodedUtf8Bytes):
+                        destination = reader.ReadAsString(SixtyNineWriter.DestinationPropertyName)
+                                      ?? throw new InvalidDataException(
+                                          $"Expected '{SixtyNineWriter.DestinationPropertyName}' to be of type {JsonTokenType.String}.");
+                        break;
+                    case JsonTokenType.PropertyName when reader.ValueTextEquals(
+                        SixtyNineWriter.PayloadPropertyNameBytes.EncodedUtf8Bytes):
+                    {
+                        reader.Read();
 
-                            if (reader.HasValueSequence)
-                            {
-                                payload = new byte[reader.ValueSequence.Length];
-                                reader.ValueSequence.CopyTo(payload.Span);
-                            }
-                            else if (!reader.ValueSpan.IsEmpty)
-                            {
-                                payload = new byte[reader.ValueSpan.Length];
-                                reader.ValueSpan.CopyTo(payload.Span);
-                            }
-                            else
-                            {
-                                payload = null;
-                            }
+                        if (reader.HasValueSequence)
+                        {
+                            payload = new byte[reader.ValueSequence.Length];
+                            reader.ValueSequence.CopyTo(payload.Span);
+                        }
+                        else if (!reader.ValueSpan.IsEmpty)
+                        {
+                            payload = new byte[reader.ValueSpan.Length];
+                            reader.ValueSpan.CopyTo(payload.Span);
                         }
                         else
                         {
-                            reader.CheckRead();
-                            reader.Skip();
+                            payload = null;
                         }
 
+                        break;
+                    }
+                    case JsonTokenType.PropertyName:
+                        reader.CheckRead();
+                        reader.Skip();
                         break;
                     case JsonTokenType.EndObject:
                         completed = true;
