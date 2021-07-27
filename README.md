@@ -1,4 +1,8 @@
-# Introduction
+# Rocco.RelayServer
+
+[![CI](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/tomesendam/RoccoRelayServer/actions/workflows/dotnet-core.yml)
+
+## Introduction
 
 RoccoRelayServer is a fast server meant to facilitate P2P communication between clients over the internet. The main goal is to bypass anything like UPnP or port forwarding.
 

@@ -13,3 +13,7 @@ TerminalGame.RelayServer/.idea/
 **/.idea/
 
 TerminalGame.RelayServer/publish/
+
+Rocco.RelayServer/Rocco.RelayServer.Core.Tests/coverage.opencover.xml
+
+Rocco.RelayServer/Rocco.RelayServer.Core.Tests/coverage.json

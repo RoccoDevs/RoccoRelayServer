@@ -135,7 +135,10 @@ namespace Rocco.RelayServer.Core.Services
             WritePayloadType(message, writer);
             WriteSource(message, writer);
             WriteDestination(message.Destination, writer);
-            if (message.Payload is not null) WritePayload(message.Payload.Value, writer);
+            if (message.Payload is not null)
+            {
+                WritePayload(message.Payload.Value, writer);
+            }
         }
 
         /// <summary>
