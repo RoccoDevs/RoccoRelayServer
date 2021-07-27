@@ -20,6 +20,6 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Build
-      run: dotnet build ./TerminalGame.RelayServer/TerminalGame.RelayServer.sln --configuration Release
+      run: dotnet build ./Rocco.RelayServer/Rocco.RelayServer.sln --configuration Release
     - name: Test
-      run: dotnet test ./TerminalGame.RelayServer/TerminalGame.RelayServer.sln --no-build --configuration Release
+      run: dotnet test ./Rocco.RelayServer/Rocco.RelayServer.sln --no-build --configuration Release

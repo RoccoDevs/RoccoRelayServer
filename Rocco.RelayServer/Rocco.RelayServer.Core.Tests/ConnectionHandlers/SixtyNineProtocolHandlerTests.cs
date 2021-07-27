@@ -17,7 +17,7 @@ namespace Rocco.RelayServer.Core.Tests.ConnectionHandlers
 {
     public class SixtyNineProtocolHandlerTests
     {
-        [Fact(Skip = "next to impossible to test.")]
+        [Fact]
         public async Task OnConnectedAsync_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
