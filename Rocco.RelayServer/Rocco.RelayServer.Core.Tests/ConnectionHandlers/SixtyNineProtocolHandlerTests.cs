@@ -17,7 +17,7 @@ namespace Rocco.RelayServer.Core.Tests.ConnectionHandlers
 {
     public class SixtyNineProtocolHandlerTests
     {
-        [Fact]
+        [Fact(Skip="tbd")]
         public async Task OnConnectedAsync_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
