@@ -4,11 +4,10 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -23,3 +22,13 @@ jobs:
       run: dotnet build ./Rocco.RelayServer/Rocco.RelayServer.sln --configuration Release
     - name: Test
       run: dotnet test ./Rocco.RelayServer/Rocco.RelayServer.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-build --configuration Release
+      
+  codacy-analysis-cli:
+    name: Codacy Analysis CLI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
