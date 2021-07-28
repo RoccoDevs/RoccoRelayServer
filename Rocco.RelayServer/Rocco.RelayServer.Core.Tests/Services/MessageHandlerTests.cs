@@ -1,7 +1,7 @@
 using System.Text;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using AutoMoq;
+using Automoqer;
 using FluentAssertions;
 using Microsoft.AspNetCore.Connections;
 using Moq;
@@ -17,12 +17,12 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandleCloseMessage_WithValidConnection_ShouldReturnNull()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var connectionContext = fixture.Create<DefaultConnectionContext>();
             connectionContext.ConnectionId = "someId";
             var socketMessage = fixture.Create<CloseMessage>();
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
 
             // Act
             var result = messageHandler.HandleMessage(
@@ -36,12 +36,12 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandleErrorMessage_WithValidConnection_ExpectedErrorMessage()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var connectionContext = fixture.Create<DefaultConnectionContext>();
             connectionContext.ConnectionId = "someId";
             var expected = fixture.Create<ErrorMessage>();
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
 
             // Act
             var result = messageHandler.HandleMessage(
@@ -55,12 +55,12 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandlePayloadMessage_WithValidConnection_ExpectedPayloadMessage()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var connectionContext = fixture.Create<DefaultConnectionContext>();
             connectionContext.ConnectionId = "someId";
             var expected = fixture.Create<PayloadMessage>();
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
 
             // Act
             var result = messageHandler.HandleMessage(
@@ -75,11 +75,11 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandleNull_WithValidConnection_ReturnsNull()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var connectionContext = fixture.Create<DefaultConnectionContext>();
             connectionContext.ConnectionId = "someId";
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
 
             // Act
             var result = messageHandler.HandleMessage(
@@ -94,9 +94,9 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandleInitMessage_WithSource_ShouldAddNewConnectionContextAndReturnInitResponse()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
             var socketMessage = fixture.Create<InitMessage>();
             var connectionContext = fixture.Create<DefaultConnectionContext>();
 
@@ -110,8 +110,8 @@ namespace Rocco.RelayServer.Core.Tests.Services
             result.Source.Should().BeNull();
             result.Source.Should().BeNull();
 
-            mocker.GetMock<ConnectionStore>().Verify(x => x.Add(connectionContext), Times.Once);
-            mocker.GetMock<ConnectionStore>().Verify(x => x.Contains(socketMessage.Source), Times.Once);
+            mocker.Param<ConnectionStore>().Verify(x => x.Add(connectionContext), Times.Once);
+            mocker.Param<ConnectionStore>().Verify(x => x.Contains(socketMessage.Source), Times.Once);
         }
 
         [Fact]
@@ -119,9 +119,9 @@ namespace Rocco.RelayServer.Core.Tests.Services
             HandleInitMessage_WithNullSourceAndConnectionStoreDoesNotContainSource_ShouldAddNewConnectionContextAndReturnInitResponse()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
             var socketMessage = new InitMessage(null);
             var connectionContext = fixture.Create<DefaultConnectionContext>();
 
@@ -139,12 +139,12 @@ namespace Rocco.RelayServer.Core.Tests.Services
         public void HandleInitMessage_WithOutNullSourceAndConnectionStoreContainSource_ShouldReturnErrorResponse()
         {
             // Arrange
-            var mocker = new AutoMoqer();
+            using var mocker = new AutoMoqer<MessageHandler>().Build();
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
-            var messageHandler = mocker.Resolve<MessageHandler>();
+            var messageHandler = mocker.Service;
             var socketMessage = fixture.Create<InitMessage>();
             var connectionContext = fixture.Create<DefaultConnectionContext>();
-            mocker.GetMock<ConnectionStore>().Setup(x => x.Contains(socketMessage.Source)).Returns(true);
+            mocker.Param<ConnectionStore>().Setup(x => x.Contains(socketMessage.Source)).Returns(true);
 
             // Act
             var result = messageHandler.HandleMessage(connectionContext, socketMessage);
@@ -155,8 +155,8 @@ namespace Rocco.RelayServer.Core.Tests.Services
             result.Source.Should().BeNull();
             result.Payload?.ToArray().Should().Contain(Encoding.UTF8.GetBytes(socketMessage.Source));
 
-            mocker.GetMock<ConnectionStore>().Verify(x => x.Add(connectionContext), Times.Never);
-            mocker.GetMock<ConnectionStore>().Verify(x => x.Contains(socketMessage.Source), Times.Once);
+            mocker.Param<ConnectionStore>().Verify(x => x.Add(connectionContext), Times.Never);
+            mocker.Param<ConnectionStore>().Verify(x => x.Contains(socketMessage.Source), Times.Once);
         }
     }
 }
