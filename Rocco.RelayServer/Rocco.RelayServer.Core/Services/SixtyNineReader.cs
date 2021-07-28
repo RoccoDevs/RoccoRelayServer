@@ -141,7 +141,7 @@ namespace Rocco.RelayServer.Core.Services
         {
             return payloadType switch
             {
-                "INIT" => new InitMessage(source),
+                "INIT" => new InitMessage(source,destination),
                 "MESSAGE" => new PayloadMessage(source, destination, payload),
                 "ERROR" => new ErrorMessage(destination, payload, source),
                 "CLOSE" => new CloseMessage(),

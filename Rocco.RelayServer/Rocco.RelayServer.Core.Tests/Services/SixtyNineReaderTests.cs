@@ -38,7 +38,11 @@ namespace Rocco.RelayServer.Core.Tests.Services
             }
 
             messages.Count.Should().Be(1);
-            messages[0].Should().BeOfType<InitMessage>();
+            var result = messages[0].Should().BeOfType<InitMessage>();
+            result.Subject.Destination.Should().BeNull();
+            result.Subject.Payload.Should().BeNull();
+            result.Subject.PayloadType.Should().Be(SixtyNineMessageType.Init);
+
         }
 
         [Fact]
@@ -70,7 +74,11 @@ namespace Rocco.RelayServer.Core.Tests.Services
             }
 
             messages.Count.Should().Be(1);
-            messages[0].Should().BeOfType<PayloadMessage>();
+            var result = messages[0].Should().BeOfType<PayloadMessage>();
+            result.Subject.Destination.Should().Be("0");
+            result.Subject.Source.Should().Be("1");
+            result.Subject.Payload?.Length.Should().Be(8);
+            result.Subject.PayloadType.Should().Be(SixtyNineMessageType.Payload);
         }
     }
 }
