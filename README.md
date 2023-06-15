@@ -154,9 +154,9 @@ The client library for this was written in Java. Sadly, I cannot publish it beca
 
 You'll need the following tools:
 
-* [Git](https://git-scm.com/)
-* [Dotnet 5](https://dotnet.microsoft.com/download/dotnet/5.0)
-* Your favorite dotnet capable IDE or text editor
+  * [Git](https://git-scm.com/)
+  * [Dotnet 7](https://dotnet.microsoft.com/download/dotnet/7.0)
+  * Your favorite dotnet capable IDE or text editor
 
 ## Build and Test
 

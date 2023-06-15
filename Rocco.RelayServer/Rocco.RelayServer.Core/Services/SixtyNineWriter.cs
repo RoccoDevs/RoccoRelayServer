@@ -2,9 +2,9 @@ namespace Rocco.RelayServer.Core.Services;
 
 public class SixtyNineWriter : IMessageWriter<SixtyNineSendibleMessage>
 {
-    public const string SourcePropertyName = "source";
-    public const string DestinationPropertyName = "destination";
-    public const string PayloadPropertyName = "payload";
+    public static readonly string SourcePropertyName = "source";
+    public static readonly string DestinationPropertyName = "destination";
+    public static readonly string PayloadPropertyName = "payload";
 
 
     public static readonly JsonEncodedText SourcePropertyNameBytes = JsonEncodedText.Encode(SourcePropertyName);
@@ -62,11 +62,17 @@ public class SixtyNineWriter : IMessageWriter<SixtyNineSendibleMessage>
     {
         WritePayloadType(message, writer);
 
-        if (message.Source is not null) WriteSource(message, writer);
+        if (message.Source is not null)
+        {
+            WriteSource(message, writer);
+        }
 
         WriteDestination(message.Destination, writer);
 
-        if (message.Payload is not null) WritePayload(message.Payload.Value, writer);
+        if (message.Payload is not null)
+        {
+            WritePayload(message.Payload.Value, writer);
+        }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
@@ -82,7 +88,10 @@ public class SixtyNineWriter : IMessageWriter<SixtyNineSendibleMessage>
         WritePayloadType(message, writer);
         WriteSource(message, writer);
         WriteDestination(message.Destination, writer);
-        if (message.Payload is not null) WritePayload(message.Payload.Value, writer);
+        if (message.Payload is not null)
+        {
+            WritePayload(message.Payload.Value, writer);
+        }
     }
 
 

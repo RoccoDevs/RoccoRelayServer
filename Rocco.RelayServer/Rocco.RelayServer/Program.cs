@@ -31,7 +31,7 @@ internal static class Program
                 services.AddScoped<IMessageSender, MessageSender>();
                 services.AddTransient<IMessageReader<SixtyNineMessage>, SixtyNineReader>();
             })
-            .ConfigureLogging((hostContext, loggingBuilder) =>
+            .ConfigureLogging((_, loggingBuilder) =>
             {
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
             })
