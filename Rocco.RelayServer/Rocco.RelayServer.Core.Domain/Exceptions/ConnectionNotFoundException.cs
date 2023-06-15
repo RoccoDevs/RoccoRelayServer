@@ -1,5 +1,3 @@
-using System;
-
 namespace Rocco.RelayServer.Core.Domain.Exceptions;
 
 public class ConnectionNotFoundException : Exception

@@ -3,11 +3,6 @@
 
 #nullable disable
 
-using System;
-using System.Buffers;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-
 namespace Rocco.RelayServer.Core.Microsoft;
 
 internal sealed class ReusableUtf8JsonWriter

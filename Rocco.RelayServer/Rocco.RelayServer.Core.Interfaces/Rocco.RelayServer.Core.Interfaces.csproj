@@ -7,12 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.IO.Pipelines" Version="7.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="7.0.7"/>
+        <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="7.0.7" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Rocco.RelayServer.Core.Domain\Rocco.RelayServer.Core.Domain.csproj"/>
+        <ProjectReference Include="..\Rocco.RelayServer.Core.Domain\Rocco.RelayServer.Core.Domain.csproj" />
     </ItemGroup>
 
 </Project>

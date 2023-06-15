@@ -1,9 +1,3 @@
-using System.Text;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.Extensions.Logging;
-using Rocco.RelayServer.Core.Domain;
-using Rocco.RelayServer.Core.Interfaces.Services;
-
 namespace Rocco.RelayServer.Core.Server.Services;
 
 public class MessageHandler : IMessageHandler

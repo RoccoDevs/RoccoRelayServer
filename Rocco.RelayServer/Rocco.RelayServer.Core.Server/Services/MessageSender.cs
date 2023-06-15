@@ -1,11 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Bedrock.Framework.Protocols;
-using Rocco.RelayServer.Core.Domain;
-using Rocco.RelayServer.Core.Domain.Exceptions;
-using Rocco.RelayServer.Core.Interfaces.Services;
-
 namespace Rocco.RelayServer.Core.Server.Services;
 
 public class MessageSender : IMessageSender, IDisposable

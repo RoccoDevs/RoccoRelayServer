@@ -3,9 +3,6 @@
 
 #nullable enable
 
-using System.IO;
-using System.Text.Json;
-
 namespace Rocco.RelayServer.Core.Microsoft;
 
 internal static class SystemTextJsonExtensions

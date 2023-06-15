@@ -1,13 +1,3 @@
-using System;
-using System.Buffers;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-using Bedrock.Framework.Protocols;
-using Rocco.RelayServer.Core.Domain;
-using Rocco.RelayServer.Core.Helpers;
-using Rocco.RelayServer.Core.Microsoft;
-
 namespace Rocco.RelayServer.Core.Services;
 
 public class SixtyNineWriter : IMessageWriter<SixtyNineSendibleMessage>

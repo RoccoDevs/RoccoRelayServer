@@ -1,14 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Bedrock.Framework.Protocols;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.Extensions.Logging;
-using Rocco.RelayServer.Core.Domain;
-using Rocco.RelayServer.Core.Domain.Exceptions;
-using Rocco.RelayServer.Core.Interfaces.Services;
-using Rocco.RelayServer.Core.Server.Services;
-
 namespace Rocco.RelayServer.Core.Server.ConnectionHandlers;
 
 public class SixtyNineProtocolHandler : ConnectionHandler

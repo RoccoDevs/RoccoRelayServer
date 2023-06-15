@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Rocco.RelayServer.Core.Domain;
+﻿namespace Rocco.RelayServer.Core.Domain;
 
 public abstract record SixtyNineMessage(string? Source, SixtyNineMessageType PayloadType);
 
