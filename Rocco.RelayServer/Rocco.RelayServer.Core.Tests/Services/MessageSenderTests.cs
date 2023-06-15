@@ -12,38 +12,37 @@ using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Server.Services;
 using Xunit;
 
-namespace Rocco.RelayServer.Core.Tests.Services
+namespace Rocco.RelayServer.Core.Tests.Services;
+
+public class MessageSenderTests
 {
-    public class MessageSenderTests
+    [Fact]
+    public async Task TrySendAsync_StateUnderTest_ExpectedBehavior()
     {
-        [Fact]
-        public async Task TrySendAsync_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            var messageSender = mocker.Create<MessageSender>();
-            SixtyNineSendibleMessage requestMessage =
-                new PayloadMessage("source", "destination", Encoding.UTF8.GetBytes("payload"));
-            var cancellationToken = default(CancellationToken);
+        var messageSender = mocker.Create<MessageSender>();
+        SixtyNineSendibleMessage requestMessage =
+            new PayloadMessage("source", "destination", Encoding.UTF8.GetBytes("payload"));
+        var cancellationToken = default(CancellationToken);
 
-            mocker.GetMock<ConnectionStore>()
-                .Setup(x => x[It.IsAny<string>()]).Returns(fixture.Create<DefaultConnectionContext>());
+        mocker.GetMock<ConnectionStore>()
+            .Setup(x => x[It.IsAny<string>()]).Returns(fixture.Create<DefaultConnectionContext>());
 
-            // Act
-            await messageSender.TrySendAsync(
-                requestMessage,
-                cancellationToken);
+        // Act
+        await messageSender.TrySendAsync(
+            requestMessage,
+            cancellationToken);
 
-            // Assert
-            mocker.GetMock<IMessageWriter<SixtyNineSendibleMessage>>()
-                .Verify(x =>
-                    x.WriteMessage(requestMessage, It.IsAny<PipeWriter>()), Times.Once);
+        // Assert
+        mocker.GetMock<IMessageWriter<SixtyNineSendibleMessage>>()
+            .Verify(x =>
+                x.WriteMessage(requestMessage, It.IsAny<PipeWriter>()), Times.Once);
 
-            mocker.GetMock<ConnectionStore>()
-                .Verify(x =>
-                    x[requestMessage.Destination], Times.Once);
-        }
+        mocker.GetMock<ConnectionStore>()
+            .Verify(x =>
+                x[requestMessage.Destination], Times.Once);
     }
 }

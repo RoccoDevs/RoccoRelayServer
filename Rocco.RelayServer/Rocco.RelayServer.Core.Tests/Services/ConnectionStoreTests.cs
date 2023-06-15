@@ -7,191 +7,190 @@ using Microsoft.AspNetCore.Connections;
 using Rocco.RelayServer.Core.Server.Services;
 using Xunit;
 
-namespace Rocco.RelayServer.Core.Tests.Services
+namespace Rocco.RelayServer.Core.Tests.Services;
+
+public class ConnectionStoreTests
 {
-    public class ConnectionStoreTests
+    [Fact]
+    public void Contains_ContainsGivenString_ReturnsTrue()
     {
-        [Fact]
-        public void Contains_ContainsGivenString_ReturnsTrue()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            var connection = fixture.Create<DefaultConnectionContext>();
+        var connection = fixture.Create<DefaultConnectionContext>();
 
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-            // Act
-            var result = connectionStore.Contains(
-                connection.ConnectionId);
+        // Act
+        var result = connectionStore.Contains(
+            connection.ConnectionId);
 
-            // Assert
-            result.Should().BeTrue();
-        }
+        // Assert
+        result.Should().BeTrue();
+    }
 
-        [Fact]
-        public void Contains_DoesNotContainGivenString_ReturnsFalse()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+    [Fact]
+    public void Contains_DoesNotContainGivenString_ReturnsFalse()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            var connection = fixture.Create<DefaultConnectionContext>();
+        var connection = fixture.Create<DefaultConnectionContext>();
 
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
-
-
-            // Act
-            var result = connectionStore.Contains(
-                "wrongId");
-
-            // Assert
-            result.Should().BeFalse();
-        }
-
-        [Fact]
-        public void Contains_NullParam_Throws()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
-
-            var connection = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-            // Act
-            connectionStore.Invoking(x => x.Contains(null)).Should().Throw<ArgumentNullException>();
-        }
+        // Act
+        var result = connectionStore.Contains(
+            "wrongId");
+
+        // Assert
+        result.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Contains_NullParam_Throws()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+        var connection = fixture.Create<DefaultConnectionContext>();
+
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-        [Fact]
-        public void ConnectionStore_ContainsGivenId_ReturnsConnectionContext()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
-
-            var connection = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
+        // Act
+        connectionStore.Invoking(x => x.Contains(null)).Should().Throw<ArgumentNullException>();
+    }
 
 
-            // Act
-            var result = connectionStore[connection.ConnectionId];
+    [Fact]
+    public void ConnectionStore_ContainsGivenId_ReturnsConnectionContext()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Assert
-            result.Should().BeEquivalentTo(connection);
-        }
+        var connection = fixture.Create<DefaultConnectionContext>();
 
-        [Fact]
-        public void ConnectionStore_DoesNotContainGivenId_ReturnsConnectionContext()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
-
-            var connection = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-            // Act
-            var result = connectionStore["wrongId"];
+        // Act
+        var result = connectionStore[connection.ConnectionId];
 
-            // Assert
-            result.Should().BeNull();
-        }
+        // Assert
+        result.Should().BeEquivalentTo(connection);
+    }
 
+    [Fact]
+    public void ConnectionStore_DoesNotContainGivenId_ReturnsConnectionContext()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-        [Fact]
-        public void Count_ContainsOneElement_ShouldReturnOne()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+        var connection = fixture.Create<DefaultConnectionContext>();
 
-            var connection = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
-
-
-            // Act
-            var result = connectionStore.Count();
-
-            // Assert
-            result.Should().Be(1);
-        }
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-        [Fact]
-        public void Count_ContainsTwoElements_ShouldReturnTwo()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+        // Act
+        var result = connectionStore["wrongId"];
 
-            var connection = fixture.Create<DefaultConnectionContext>();
-            var connection2 = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
-            connectionStore.Add(connection2);
+        // Assert
+        result.Should().BeNull();
+    }
 
 
-            // Act
-            var result = connectionStore.Count();
+    [Fact]
+    public void Count_ContainsOneElement_ShouldReturnOne()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Assert
-            result.Should().Be(2);
-        }
+        var connection = fixture.Create<DefaultConnectionContext>();
 
-        [Fact]
-        public void Count_ContainsTwoElements_ShouldReturnOneAfterDeletion()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
-
-            var connection = fixture.Create<DefaultConnectionContext>();
-            var connection2 = fixture.Create<DefaultConnectionContext>();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
-            connectionStore.Add(connection);
-            connectionStore.Add(connection2);
-            connectionStore.Remove(connection2);
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
 
 
-            // Act
-            var result = connectionStore.Count();
+        // Act
+        var result = connectionStore.Count();
 
-            // Assert
-            result.Should().Be(1);
-        }
-
-        [Fact]
-        public void Count_ContainsNoElements_ShouldReturnZero()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-
-            var connectionStore = mocker.Resolve<ConnectionStore>();
+        // Assert
+        result.Should().Be(1);
+    }
 
 
-            // Act
-            var result = connectionStore.Count();
+    [Fact]
+    public void Count_ContainsTwoElements_ShouldReturnTwo()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Assert
-            result.Should().Be(0);
-        }
+        var connection = fixture.Create<DefaultConnectionContext>();
+        var connection2 = fixture.Create<DefaultConnectionContext>();
+
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
+        connectionStore.Add(connection2);
+
+
+        // Act
+        var result = connectionStore.Count();
+
+        // Assert
+        result.Should().Be(2);
+    }
+
+    [Fact]
+    public void Count_ContainsTwoElements_ShouldReturnOneAfterDeletion()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+        var connection = fixture.Create<DefaultConnectionContext>();
+        var connection2 = fixture.Create<DefaultConnectionContext>();
+
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+        connectionStore.Add(connection);
+        connectionStore.Add(connection2);
+        connectionStore.Remove(connection2);
+
+
+        // Act
+        var result = connectionStore.Count();
+
+        // Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public void Count_ContainsNoElements_ShouldReturnZero()
+    {
+        // Arrange
+        var mocker = new AutoMoqer();
+
+        var connectionStore = mocker.Resolve<ConnectionStore>();
+
+
+        // Act
+        var result = connectionStore.Count();
+
+        // Assert
+        result.Should().Be(0);
     }
 }

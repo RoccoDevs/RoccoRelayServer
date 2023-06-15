@@ -13,36 +13,35 @@ using Rocco.RelayServer.Core.Server.ConnectionHandlers;
 using Rocco.RelayServer.Core.Services;
 using Xunit;
 
-namespace Rocco.RelayServer.Core.Tests.ConnectionHandlers
+namespace Rocco.RelayServer.Core.Tests.ConnectionHandlers;
+
+public class SixtyNineProtocolHandlerTests
 {
-    public class SixtyNineProtocolHandlerTests
+    [Fact(Skip = "tbd")]
+    public async Task OnConnectedAsync_StateUnderTest_ExpectedBehavior()
     {
-        [Fact(Skip="tbd")]
-        public async Task OnConnectedAsync_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var mocker = new AutoMoqer();
-            var fixture = new Fixture().Customize(new AutoMoqCustomization());
-            var sixtyNineProtocolHandler = mocker.Create<SixtyNineProtocolHandler>();
-            ConnectionContext connection = fixture.Build<DefaultConnectionContext>()
-                .With(x => x.ConnectionClosed, new CancellationToken(false)).WithAutoProperties().Create();
+        // Arrange
+        var mocker = new AutoMoqer();
+        var fixture = new Fixture().Customize(new AutoMoqCustomization());
+        var sixtyNineProtocolHandler = mocker.Create<SixtyNineProtocolHandler>();
+        ConnectionContext connection = fixture.Build<DefaultConnectionContext>()
+            .With(x => x.ConnectionClosed, new CancellationToken(false)).WithAutoProperties().Create();
 
-            SixtyNineMessage expected = new InitMessage("megakek");
+        SixtyNineMessage expected = new InitMessage("megakek");
 
-            mocker.GetMock<SixtyNineReader>().Setup(x => x.TryParseMessage(It.IsAny<ReadOnlySequence<byte>>(),
-                ref It.Ref<SequencePosition>.IsAny, ref It.Ref<SequencePosition>.IsAny, out expected));
+        mocker.GetMock<SixtyNineReader>().Setup(x => x.TryParseMessage(It.IsAny<ReadOnlySequence<byte>>(),
+            ref It.Ref<SequencePosition>.IsAny, ref It.Ref<SequencePosition>.IsAny, out expected));
 
 
-            // Act
-            await sixtyNineProtocolHandler.OnConnectedAsync(
-                connection);
+        // Act
+        await sixtyNineProtocolHandler.OnConnectedAsync(
+            connection);
 
-            Thread.Sleep(100);
-            connection.ConnectionClosed = new CancellationToken(true);
-            // Assert
+        Thread.Sleep(100);
+        connection.ConnectionClosed = new CancellationToken(true);
+        // Assert
 
-            mocker.GetMock<IMessageHandler>()
-                .Verify(x => x.HandleMessage(It.IsAny<ConnectionContext>(), It.IsAny<InitMessage>()), Times.Once);
-        }
+        mocker.GetMock<IMessageHandler>()
+            .Verify(x => x.HandleMessage(It.IsAny<ConnectionContext>(), It.IsAny<InitMessage>()), Times.Once);
     }
 }
