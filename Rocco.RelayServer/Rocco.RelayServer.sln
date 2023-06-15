@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocco.RelayServer.Core.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocco.RelayServer.Core.Server", "Rocco.RelayServer.Core.Server\Rocco.RelayServer.Core.Server.csproj", "{8F2C0B56-1AD8-48C9-A2D5-3581E436E03B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocco.RelayServer.Core.Client", "Rocco.RelayServer.Core.Client\Rocco.RelayServer.Core.Client.csproj", "{2C1393A4-C87C-47CD-9D6E-3565504CB565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{8F2C0B56-1AD8-48C9-A2D5-3581E436E03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2C0B56-1AD8-48C9-A2D5-3581E436E03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2C0B56-1AD8-48C9-A2D5-3581E436E03B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1393A4-C87C-47CD-9D6E-3565504CB565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1393A4-C87C-47CD-9D6E-3565504CB565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1393A4-C87C-47CD-9D6E-3565504CB565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1393A4-C87C-47CD-9D6E-3565504CB565}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2407EAB9-62F6-4224-AC2D-7DA1A90D7BD0} = {3CC6B913-FB87-4C82-A4B3-713072E8AC7B}

@@ -2,6 +2,6 @@ namespace Rocco.RelayServer.Core.Interfaces.Services;
 
 public interface IMessageSender
 {
-    ValueTask TrySendAsync(SixtyNineSendibleMessage requestMessage,
+    ValueTask TrySendAsync(SixtyNineMessage requestMessage,
         CancellationToken cancellationToken = default);
 }

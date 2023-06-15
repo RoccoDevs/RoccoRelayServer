@@ -4,11 +4,11 @@ public class MessageSender : IMessageSender, IDisposable
 {
     private readonly ConnectionStore _connectionStore;
 
-    private readonly IMessageWriter<SixtyNineSendibleMessage> _messageWriter;
+    private readonly IMessageWriter<SixtyNineMessage> _messageWriter;
 
     private readonly SemaphoreSlim _semaphore;
 
-    public MessageSender(IMessageWriter<SixtyNineSendibleMessage> messageWriter, ConnectionStore connectionStore)
+    public MessageSender(IMessageWriter<SixtyNineMessage> messageWriter, ConnectionStore connectionStore)
     {
         _messageWriter = messageWriter;
         _connectionStore = connectionStore;
@@ -17,18 +17,21 @@ public class MessageSender : IMessageSender, IDisposable
 
     public void Dispose()
     {
-        _semaphore.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
 
-    public async ValueTask TrySendAsync(SixtyNineSendibleMessage requestMessage,
+    public async ValueTask TrySendAsync(SixtyNineMessage requestMessage,
         CancellationToken cancellationToken = default)
     {
         await _semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            var connection = _connectionStore[requestMessage.Destination] ??
-                             throw new ConnectionNotFoundException(requestMessage.Destination);
+            var connection = requestMessage.Destination is not null
+                ? _connectionStore[requestMessage.Destination] ??
+                  throw new ConnectionNotFoundException(requestMessage.Destination)
+                : throw new ConnectionNotFoundException("null");
 
             var protocolWriter = new ProtocolWriter(connection.Transport.Output);
             await protocolWriter.WriteAsync(_messageWriter, requestMessage, cancellationToken);
@@ -37,5 +40,10 @@ public class MessageSender : IMessageSender, IDisposable
         {
             _semaphore.Release();
         }
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        _semaphore.Dispose();
     }
 }

@@ -12,7 +12,7 @@ public class MessageHandler : IMessageHandler
         _logger = logger;
     }
 
-    public SixtyNineSendibleMessage? HandleMessage(ConnectionContext connection, SixtyNineMessage message)
+    public SixtyNineMessage? HandleMessage(ConnectionContext connection, SixtyNineMessage message)
     {
         return message switch
         {
@@ -21,17 +21,17 @@ public class MessageHandler : IMessageHandler
             CloseMessage => HandleCloseMessage(connection),
             ErrorMessage x => x,
             PayloadMessage x => x,
-            _ => new ErrorMessage(connection.ConnectionId, Encoding.UTF8.GetBytes("Invalid type"))
+            _ => new ErrorMessage(connection.ConnectionId, "Invalid type"u8.ToArray())
         };
     }
 
-    private SixtyNineSendibleMessage? HandleCloseMessage(ConnectionContext connectionContext)
+    private SixtyNineMessage? HandleCloseMessage(ConnectionContext connectionContext)
     {
         _connectionStore.Remove(connectionContext);
         return null;
     }
 
-    private SixtyNineSendibleMessage HandleInitMessage(InitMessage socketMessage,
+    private SixtyNineMessage HandleInitMessage(InitMessage socketMessage,
         ConnectionContext connectionContext)
     {
         var (source, _) = socketMessage;

@@ -33,22 +33,28 @@ public class SixtyNineReader : IMessageReader<SixtyNineMessage>
                 case JsonTokenType.PropertyName when reader.ValueTextEquals(SixtyNinePropertyNames
                     .PayloadTypePropertyNameBytes
                     .EncodedUtf8Bytes):
+                {
                     payloadType = reader.ReadAsString(SixtyNinePropertyNames.PayloadTypePropertyName)
                                   ?? throw new InvalidDataException(
                                       $"Expected '{SixtyNinePropertyNames.PayloadTypePropertyName}' to be of type {JsonTokenType.String}.");
                     break;
+                }
                 case JsonTokenType.PropertyName
                     when reader.ValueTextEquals(SixtyNineWriter.SourcePropertyNameBytes.EncodedUtf8Bytes):
+                {
                     source = reader.ReadAsString(SixtyNineWriter.SourcePropertyName)
                              ?? throw new InvalidDataException(
                                  $"Expected '{SixtyNineWriter.SourcePropertyName}' to be of type {JsonTokenType.String}.");
                     break;
+                }
                 case JsonTokenType.PropertyName when reader.ValueTextEquals(SixtyNineWriter.DestinationPropertyNameBytes
                     .EncodedUtf8Bytes):
+                {
                     destination = reader.ReadAsString(SixtyNineWriter.DestinationPropertyName)
                                   ?? throw new InvalidDataException(
                                       $"Expected '{SixtyNineWriter.DestinationPropertyName}' to be of type {JsonTokenType.String}.");
                     break;
+                }
                 case JsonTokenType.PropertyName when reader.ValueTextEquals(
                     SixtyNineWriter.PayloadPropertyNameBytes.EncodedUtf8Bytes):
                 {
@@ -72,12 +78,16 @@ public class SixtyNineReader : IMessageReader<SixtyNineMessage>
                     break;
                 }
                 case JsonTokenType.PropertyName:
+                {
                     reader.CheckRead();
                     reader.Skip();
                     break;
+                }
                 case JsonTokenType.EndObject:
+                {
                     completed = true;
                     break;
+                }
             }
         } while (!completed && reader.CheckRead());
 

@@ -23,7 +23,6 @@ public class SixtyNineProtocolHandler : ConnectionHandler
     {
         var reader = connection.CreateReader();
         while (!connection.ConnectionClosed.IsCancellationRequested)
-        {
             try
             {
                 var result = await reader.ReadAsync(_messageReader);
@@ -70,7 +69,6 @@ public class SixtyNineProtocolHandler : ConnectionHandler
             {
                 reader.Advance();
             }
-        }
 
         _logger.LogInformation("Disconnected: {@Connection}", connection.ConnectionId);
         _connectionStore.Remove(connection);
