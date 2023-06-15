@@ -24,7 +24,7 @@ public class MessageSenderTests
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
         var messageSender = mocker.CreateInstance<MessageSender>();
-        SixtyNineSendibleMessage requestMessage =
+        SixtyNineMessage requestMessage =
             new PayloadMessage("source", "destination", Encoding.UTF8.GetBytes("payload"));
         var cancellationToken = default(CancellationToken);
 
@@ -37,7 +37,7 @@ public class MessageSenderTests
             cancellationToken);
 
         // Assert
-        mocker.GetMock<IMessageWriter<SixtyNineSendibleMessage>>()
+        mocker.GetMock<IMessageWriter<SixtyNineMessage>>()
             .Verify(x =>
                 x.WriteMessage(requestMessage, It.IsAny<PipeWriter>()), Times.Once);
 

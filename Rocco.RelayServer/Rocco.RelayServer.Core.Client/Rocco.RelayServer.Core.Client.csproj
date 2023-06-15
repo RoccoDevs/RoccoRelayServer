@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Bedrock.Framework" Version="0.1.63-alpha.gf69fa1b135" />
+      <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="7.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rocco.RelayServer.Core\Rocco.RelayServer.Core.csproj" />
+    </ItemGroup>
+
+</Project>
