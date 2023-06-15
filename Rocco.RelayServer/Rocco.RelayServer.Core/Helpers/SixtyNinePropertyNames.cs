@@ -2,7 +2,7 @@ namespace Rocco.RelayServer.Core.Helpers;
 
 public static class SixtyNinePropertyNames
 {
-    public const string PayloadTypePropertyName = "payloadType";
+    public static readonly string PayloadTypePropertyName = "payloadType";
 
     public static readonly JsonEncodedText PayloadTypePropertyNameBytes =
         JsonEncodedText.Encode(PayloadTypePropertyName);
