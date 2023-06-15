@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using AutoMoq;
 using Bedrock.Framework.Protocols;
 using Microsoft.AspNetCore.Connections;
 using Moq;
+using Moq.AutoMock;
 using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Server.Services;
 using Xunit;
@@ -20,10 +20,10 @@ public class MessageSenderTests
     public async Task TrySendAsync_StateUnderTest_ExpectedBehavior()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-        var messageSender = mocker.Create<MessageSender>();
+        var messageSender = mocker.CreateInstance<MessageSender>();
         SixtyNineSendibleMessage requestMessage =
             new PayloadMessage("source", "destination", Encoding.UTF8.GetBytes("payload"));
         var cancellationToken = default(CancellationToken);

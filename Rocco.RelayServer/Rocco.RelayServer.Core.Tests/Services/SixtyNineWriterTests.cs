@@ -1,7 +1,7 @@
 using System.Buffers;
 using System.Text;
-using AutoMoq;
 using FluentAssertions;
+using Moq.AutoMock;
 using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Services;
 using Xunit;
@@ -14,9 +14,9 @@ public class SixtyNineWriterTests
     public void WriteMessage_WithInitMessage_ShouldWrite()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
 
-        var sixtyNineWriter = mocker.Create<SixtyNineWriter>();
+        var sixtyNineWriter = mocker.CreateInstance<SixtyNineWriter>();
         var message = new InitResponseMessage("dest1");
 
         var stream = new ArrayBufferWriter<byte>(1024);
@@ -37,9 +37,9 @@ public class SixtyNineWriterTests
     public void WriteMessage_WithErrorMessageWithSource_ShouldWrite()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
 
-        var sixtyNineWriter = mocker.Create<SixtyNineWriter>();
+        var sixtyNineWriter = mocker.CreateInstance<SixtyNineWriter>();
         var message = new ErrorMessage("dest1", Encoding.UTF8.GetBytes("contains"), "numerone");
 
         var stream = new ArrayBufferWriter<byte>(1024);
@@ -62,9 +62,9 @@ public class SixtyNineWriterTests
     public void WriteMessage_WithErrorMessageWithoutSource_ShouldWrite()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
 
-        var sixtyNineWriter = mocker.Create<SixtyNineWriter>();
+        var sixtyNineWriter = mocker.CreateInstance<SixtyNineWriter>();
         var message = new ErrorMessage("dest1", Encoding.UTF8.GetBytes("contains"));
 
         var stream = new ArrayBufferWriter<byte>(1024);
@@ -86,9 +86,9 @@ public class SixtyNineWriterTests
     public void WriteMessage_WithPayloadMessage_ShouldWrite()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
 
-        var sixtyNineWriter = mocker.Create<SixtyNineWriter>();
+        var sixtyNineWriter = mocker.CreateInstance<SixtyNineWriter>();
         var message = new PayloadMessage("src1", "dst1", Encoding.UTF8.GetBytes("contains"));
 
         var stream = new ArrayBufferWriter<byte>(1024);
