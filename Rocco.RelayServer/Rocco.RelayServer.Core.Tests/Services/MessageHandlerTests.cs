@@ -1,10 +1,10 @@
 using System.Text;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using AutoMoq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Connections;
 using Moq;
+using Moq.AutoMock;
 using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Server.Services;
 using Xunit;
@@ -17,12 +17,12 @@ public class MessageHandlerTests
     public void HandleCloseMessage_WithValidConnection_ShouldReturnNull()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
         var connectionContext = fixture.Create<DefaultConnectionContext>();
         connectionContext.ConnectionId = "someId";
         var socketMessage = fixture.Create<CloseMessage>();
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
 
         // Act
         var result = messageHandler.HandleMessage(
@@ -36,12 +36,12 @@ public class MessageHandlerTests
     public void HandleErrorMessage_WithValidConnection_ExpectedErrorMessage()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
         var connectionContext = fixture.Create<DefaultConnectionContext>();
         connectionContext.ConnectionId = "someId";
         var expected = fixture.Create<ErrorMessage>();
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
 
         // Act
         var result = messageHandler.HandleMessage(
@@ -55,12 +55,12 @@ public class MessageHandlerTests
     public void HandlePayloadMessage_WithValidConnection_ExpectedPayloadMessage()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
         var connectionContext = fixture.Create<DefaultConnectionContext>();
         connectionContext.ConnectionId = "someId";
         var expected = fixture.Create<PayloadMessage>();
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
 
         // Act
         var result = messageHandler.HandleMessage(
@@ -75,11 +75,11 @@ public class MessageHandlerTests
     public void HandleNull_WithValidConnection_ReturnsNull()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
         var connectionContext = fixture.Create<DefaultConnectionContext>();
         connectionContext.ConnectionId = "someId";
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
 
         // Act
         var result = messageHandler.HandleMessage(
@@ -94,9 +94,9 @@ public class MessageHandlerTests
     public void HandleInitMessage_WithSource_ShouldAddNewConnectionContextAndReturnInitResponse()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
         var socketMessage = fixture.Create<InitMessage>();
         var connectionContext = fixture.Create<DefaultConnectionContext>();
 
@@ -119,9 +119,9 @@ public class MessageHandlerTests
         HandleInitMessage_WithNullSourceAndConnectionStoreDoesNotContainSource_ShouldAddNewConnectionContextAndReturnInitResponse()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
         var socketMessage = new InitMessage(null);
         var connectionContext = fixture.Create<DefaultConnectionContext>();
 
@@ -139,9 +139,9 @@ public class MessageHandlerTests
     public void HandleInitMessage_WithOutNullSourceAndConnectionStoreContainSource_ShouldReturnErrorResponse()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
-        var messageHandler = mocker.Resolve<MessageHandler>();
+        var messageHandler = mocker.CreateInstance<MessageHandler>();
         var socketMessage = fixture.Create<InitMessage>();
         var connectionContext = fixture.Create<DefaultConnectionContext>();
         mocker.GetMock<ConnectionStore>().Setup(x => x.Contains(socketMessage.Source)).Returns(true);

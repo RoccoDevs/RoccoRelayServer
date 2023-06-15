@@ -1,8 +1,8 @@
 # Rocco.RelayServer
 
 [![CI](https://github.com/RoccoDevs/RoccoRelayServer/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/RoccoDevs/RoccoRelayServer/actions/workflows/dotnet-core.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/537d36aa9ed242708a0bdd9f426deab6)](https://www.codacy.com/gh/RoccoDevs/RoccoRelayServer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RoccoDevs/RoccoRelayServer&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/537d36aa9ed242708a0bdd9f426deab6)](https://www.codacy.com/gh/RoccoDevs/RoccoRelayServer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=RoccoDevs/RoccoRelayServer&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e2bce1c016a04b50ae2e5650c10e42d2)](https://app.codacy.com/gh/RoccoDevs/RoccoRelayServer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e2bce1c016a04b50ae2e5650c10e42d2)](https://app.codacy.com/gh/RoccoDevs/RoccoRelayServer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Codacy Security Scan](https://github.com/RoccoDevs/RoccoRelayServer/actions/workflows/codacy-analysis.yaml/badge.svg)](https://github.com/RoccoDevs/RoccoRelayServer/actions/workflows/codacy-analysis.yaml)
 
 ## Introduction
@@ -155,7 +155,7 @@ The client library for this was written in Java. Sadly, I cannot publish it beca
 You'll need the following tools:
 
 * [Git](https://git-scm.com/)
-* [Dotnet 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [Dotnet 7](https://dotnet.microsoft.com/download/dotnet/7.0)
 * Your favorite dotnet capable IDE or text editor
 
 ## Build and Test

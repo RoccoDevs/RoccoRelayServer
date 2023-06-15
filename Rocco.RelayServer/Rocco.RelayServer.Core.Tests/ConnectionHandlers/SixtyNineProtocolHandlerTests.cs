@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using AutoMoq;
 using Microsoft.AspNetCore.Connections;
 using Moq;
+using Moq.AutoMock;
 using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Interfaces.Services;
 using Rocco.RelayServer.Core.Server.ConnectionHandlers;
@@ -21,9 +21,9 @@ public class SixtyNineProtocolHandlerTests
     public async Task OnConnectedAsync_StateUnderTest_ExpectedBehavior()
     {
         // Arrange
-        var mocker = new AutoMoqer();
+        var mocker = new AutoMocker();
         var fixture = new Fixture().Customize(new AutoMoqCustomization());
-        var sixtyNineProtocolHandler = mocker.Create<SixtyNineProtocolHandler>();
+        var sixtyNineProtocolHandler = mocker.CreateInstance<SixtyNineProtocolHandler>();
         ConnectionContext connection = fixture.Build<DefaultConnectionContext>()
             .With(x => x.ConnectionClosed, new CancellationToken(false)).WithAutoProperties().Create();
 

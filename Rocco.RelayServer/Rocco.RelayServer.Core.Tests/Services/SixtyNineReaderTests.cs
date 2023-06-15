@@ -1,8 +1,8 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
-using AutoMoq;
 using FluentAssertions;
+using Moq.AutoMock;
 using Rocco.RelayServer.Core.Domain;
 using Rocco.RelayServer.Core.Services;
 using Xunit;
@@ -22,8 +22,8 @@ public class SixtyNineReaderTests
             0x3A, 0x22, 0x31, 0x22, 0x7D
         };
 
-        var mocker = new AutoMoqer();
-        var sixtyNineReader = mocker.Create<SixtyNineReader>();
+        var mocker = new AutoMocker();
+        var sixtyNineReader = mocker.CreateInstance<SixtyNineReader>();
         var input = new ReadOnlySequence<byte>(initMessage);
         var consumed = new SequencePosition(input, 0);
         var examined = new SequencePosition(input, 0);
@@ -54,8 +54,8 @@ public class SixtyNineReaderTests
             0x22, 0x3A, 0x22, 0x50, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x30, 0x22, 0x7D
         };
 
-        var mocker = new AutoMoqer();
-        var sixtyNineReader = mocker.Create<SixtyNineReader>();
+        var mocker = new AutoMocker();
+        var sixtyNineReader = mocker.CreateInstance<SixtyNineReader>();
         var input = new ReadOnlySequence<byte>(payloadMessage);
         var consumed = new SequencePosition(input, 0);
         var examined = new SequencePosition(input, 0);
