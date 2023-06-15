@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="5.0.2" />
+        <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="7.0.7" />
     </ItemGroup>
 
     <ItemGroup>

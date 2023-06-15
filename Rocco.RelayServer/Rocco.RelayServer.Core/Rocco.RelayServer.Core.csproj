@@ -9,8 +9,8 @@
     <ItemGroup>
         <PackageReference Include="Bedrock.Framework" Version="*-*" />
         <PackageReference Include="Bedrock.Framework.Experimental" Version="*-*" />
-        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="5.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="5.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="7.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="7.0.7" />
     </ItemGroup>
 
     <ItemGroup>

@@ -106,7 +106,7 @@ namespace Rocco.RelayServer.Core.Tests.Services
 
             // Assert
             result.Destination.Should().BeEquivalentTo(socketMessage.Source);
-            result.PayloadType.Should().BeEquivalentTo(socketMessage.PayloadType);
+            result.PayloadType.Should().Be(socketMessage.PayloadType);
             result.Source.Should().BeNull();
             result.Source.Should().BeNull();
 
@@ -130,7 +130,7 @@ namespace Rocco.RelayServer.Core.Tests.Services
 
             // Assert
             result.Destination.Should().BeEquivalentTo(connectionContext.ConnectionId);
-            result.PayloadType.Should().BeEquivalentTo(socketMessage.PayloadType);
+            result.PayloadType.Should().Be(socketMessage.PayloadType);
             result.Source.Should().BeNull();
             result.Payload.Should().BeNull();
         }
@@ -150,7 +150,7 @@ namespace Rocco.RelayServer.Core.Tests.Services
             var result = messageHandler.HandleMessage(connectionContext, socketMessage);
 
             // Assert
-            result.PayloadType.Should().BeEquivalentTo(SixtyNineMessageType.Error);
+            result.PayloadType.Should().Be(SixtyNineMessageType.Error);
             result.Destination.Should().BeEquivalentTo(connectionContext.ConnectionId);
             result.Source.Should().BeNull();
             result.Payload?.ToArray().Should().Contain(Encoding.UTF8.GetBytes(socketMessage.Source));
