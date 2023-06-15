@@ -20,10 +20,12 @@ jobs:
 
     - name: Build
       run: dotnet build ./Rocco.RelayServer/Rocco.RelayServer.sln --configuration Release
+
     - name: Test
       run: dotnet test ./Rocco.RelayServer/Rocco.RelayServer.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-build --configuration Release
+
     - name: Run codacy-coverage-reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: ./Rocco.RelayServer/Rocco.RelayServer.Core.Tests/coverage.opencover.xml
+        coverage-reports: ./*/**/coverage.opencover.xml

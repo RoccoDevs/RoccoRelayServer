@@ -25,13 +25,13 @@ public class MessageHandler : IMessageHandler
         };
     }
 
-    internal SixtyNineSendibleMessage? HandleCloseMessage(ConnectionContext connectionContext)
+    private SixtyNineSendibleMessage? HandleCloseMessage(ConnectionContext connectionContext)
     {
         _connectionStore.Remove(connectionContext);
         return null;
     }
 
-    internal SixtyNineSendibleMessage HandleInitMessage(InitMessage socketMessage,
+    private SixtyNineSendibleMessage HandleInitMessage(InitMessage socketMessage,
         ConnectionContext connectionContext)
     {
         var (source, _) = socketMessage;
